@@ -12,7 +12,7 @@ class Contact extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name', 'phone', 'email', 'address', 'operating_mode', 'is_active', 'sort', 'coords', 'zoom'];
+    protected $fillable = ['name', 'slug', 'phone', 'email', 'address', 'operating_mode', 'is_active', 'sort', 'coords', 'zoom'];
 
     protected $casts = [
         'is_active' => 'boolean',
@@ -23,7 +23,7 @@ class Contact extends Model
     public function setOperatingModeAttribute($values)
     {
         if (is_array($values)) {
-            $this->attributes['operating_mode'] = getOperationMode($values);
+            $this->attributes['operating_mode'] = json_encode(getOperationMode($values));
         } else {
             $this->attributes['operating_mode'] = null;
         }
