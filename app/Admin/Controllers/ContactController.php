@@ -70,10 +70,8 @@ class ContactController extends BaseController
     {
         $form = new Form(new Contact());
 
-        Admin::headerJs('//api-maps.yandex.ru/2.1/?apikey=2b2f535a-5940-453e-b7a3-c723a9c1d0fe&lang=ru_RU');
-        Admin::headerJs(asset('js/map.js'));
-
         $form->text('name', __('panel.name'))->required();
+        $form->text('url', __('slug'));
         $form->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99'])->required();
         $form->email('email', __('panel.email'));
         $form->textarea('address', __('panel.address'));
