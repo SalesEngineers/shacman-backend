@@ -30,7 +30,7 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = Category::onlyParents()->orderBy('sort', 'asc')->get();
+        $categories = Category::onlyParents()->with(['children'])->orderBy('sort', 'asc')->get();
 
         return CategoryResource::collection($categories);
     }
