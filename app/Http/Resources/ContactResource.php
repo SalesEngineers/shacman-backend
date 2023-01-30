@@ -37,6 +37,7 @@ class ContactResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->url,
             'phone' => $this->when(
                 $this->phone,
                 new PhoneResource(
