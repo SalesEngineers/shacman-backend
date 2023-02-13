@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Services\ContactService;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ContactResource;
 
 class ContactController extends Controller
 {
