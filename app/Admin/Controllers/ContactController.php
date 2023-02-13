@@ -69,6 +69,10 @@ class ContactController extends BaseController
      */
     protected function form()
     {
+        $ip = request()->ip();
+        $location = \App\SypexGeo\SypexGeoFacade::get($ip);
+        $region = 'Ваш регион: ' . (isset($location['region']['name_ru']) ? $location['region']['name_ru'] : 'не определен');
+        
         $form = new Form(new Contact());
 
         $form->text('name', __('panel.name'))->required();
