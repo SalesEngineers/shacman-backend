@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * GEO
+         */
+        \App\SypexGeo\SypexGeoServiceProvider::class,
     ],
 
     /*
@@ -227,6 +231,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /**
+         * GEO
+         */
+        'SypexGeo' => \App\SypexGeo\SypexGeoFacade::class
     ],
 
     /**

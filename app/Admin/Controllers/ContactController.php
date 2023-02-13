@@ -30,6 +30,7 @@ class ContactController extends BaseController
 
         $grid->column('id', __('panel.id'))->sortable();
         $grid->column('name', __('panel.name'))->sortable();
+        $grid->column('region', __('panel.region'));
         $grid->column('phone', __('panel.phone'));
         $grid->column('email', __('panel.email'))->default('&minus;');
         $grid->column('address', __('panel.address'))->default('&minus;');
@@ -71,6 +72,7 @@ class ContactController extends BaseController
         $form = new Form(new Contact());
 
         $form->text('name', __('panel.name'))->required();
+        $form->text('region', __('panel.region'))->help($region);
         $form->text('url', __('slug'));
         $form->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99'])->required();
         $form->email('email', __('panel.email'));
