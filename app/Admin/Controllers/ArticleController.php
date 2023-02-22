@@ -77,6 +77,9 @@ class ArticleController extends BaseController
             $form->datetime('published_at', __('panel.published_at'))->default(date('Y-m-d H:i:s'));
         })->tab('Изображения', function (Form $form) {
             $form->image('imageVertical.url', __('panel.image_vertical'))
+                ->name(function ($file) {
+                    return \Illuminate\Support\Str::slug($file->getClientOriginalName()) . '.' . $file->guessExtension();
+                })
                  ->rules(['mimes:jpeg,jpg,png,webp'])
                  ->removable();
             $form->text('imageVertical.alt', __('panel.image_alt'));
@@ -84,6 +87,9 @@ class ArticleController extends BaseController
             $form->hidden('imageVertical.is_vertical')->default(1);
             $form->divider();
             $form->image('imageHorizontal.url', __('panel.image_horizontal'))
+                ->name(function ($file) {
+                    return \Illuminate\Support\Str::slug($file->getClientOriginalName()) . '.' . $file->guessExtension();
+                })
                  ->rules(['mimes:jpeg,jpg,png,webp'])
                  ->removable();
             $form->text('imageHorizontal.alt', __('panel.image_alt'));

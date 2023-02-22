@@ -132,6 +132,9 @@ class ProductController extends BaseController
         })->tab('Изображения', function (Form $form) {
             $form->morphMany('images', '', function (Form\NestedForm $form) {
                 $form->image('url', __('panel.image'))
+                    ->name(function ($file) {
+                        return \Illuminate\Support\Str::slug($file->getClientOriginalName()) . '.' . $file->guessExtension();
+                    })
                      ->rules(['mimes:jpeg,jpg,png,webp']);
                 $form->text('alt', __('panel.image_alt'));
                 $form->text('title', __('panel.image_title'));
