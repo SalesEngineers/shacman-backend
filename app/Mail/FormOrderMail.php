@@ -39,7 +39,7 @@ class FormOrderMail extends Mailable
         ]);
 
         if ($this->order->subject) {
-            $view->subject($this->order->subject);
+            $view->subject($this->order->subject . ' [shacman-rf.ru]');
         }
 
         if ($attachment) {
