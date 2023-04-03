@@ -33,6 +33,7 @@ class ArticleController extends BaseController
         $grid->column('name', __('panel.name'))->sortable();
         $grid->column('url', __('panel.slug'));
         $grid->column('is_main', __('panel.is_main'))->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '')->sortable();
+        $grid->column('sort', __('panel.sort'))->sortable();
         $grid->column('published_at', __('panel.published_at'))->sortable();
 
         $grid->filter(function (Filter $filter) {
@@ -75,6 +76,7 @@ class ArticleController extends BaseController
             $form->summernote('content', __('panel.content'))->rules(['required']);
             $form->switch('is_main', __('panel.is_main'));
             $form->datetime('published_at', __('panel.published_at'))->default(date('Y-m-d H:i:s'));
+            $form->number('sort', __('panel.sort'))->default(10);
         })->tab('Изображения', function (Form $form) {
             $form->image('imageVertical.url', __('panel.image_vertical'))
                 ->name(function ($file) {

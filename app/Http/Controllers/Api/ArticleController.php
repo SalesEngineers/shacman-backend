@@ -32,7 +32,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $per_page = (int)$request->get('per_page', config('app.pagination_per_page'));
-        $articles = Article::paginate($per_page);
+        $articles = Article::query()->orderBy('sort', 'desc')->paginate($per_page);
         return new ArticleResourceCollection($articles);
     }
 
