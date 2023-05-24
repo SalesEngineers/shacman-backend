@@ -72,7 +72,8 @@ class SettingsResource extends JsonResource
             'requisites' => RequisiteResource::collection(
                 (new RequisitesContainer($this->requisites))->requisites
             ),
-            'attachment' => new AttachmentResource($this->attachment)
+            'attachment' => new AttachmentResource($this->attachment),
+            'video' => $this->video
         ];
     }
 }

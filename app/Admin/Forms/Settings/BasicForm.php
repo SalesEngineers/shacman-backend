@@ -58,6 +58,7 @@ class BasicForm extends Form
         $settings->email = $request->get('email');
         $settings->address = $request->get('address');
         $settings->requisites = $request->get('requisites');
+        $settings->video = $request->get('video');
 
          if ($settings->save()) {
              $attachmentRequest = $request->get('attachment');
@@ -92,6 +93,7 @@ class BasicForm extends Form
      */
     public function form()
     {
+        $this->text('video', __('panel.video'));
         $this->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99']);
         $this->email('email', __('panel.email'))->rules('email');
         $this->textarea('address', __('panel.address'));

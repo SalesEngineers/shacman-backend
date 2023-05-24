@@ -33,6 +33,7 @@ class ArticleResource extends ArticleShortResource
         $array = parent::toArray($request);
         $array['content'] = $this->content;
         $array['seo'] = new SeoResource($this->seo);
+        $array['video'] = $this->video;
 
         return $array;
     }

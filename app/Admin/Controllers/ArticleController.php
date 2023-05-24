@@ -77,6 +77,7 @@ class ArticleController extends BaseController
             $form->switch('is_main', __('panel.is_main'));
             $form->datetime('published_at', __('panel.published_at'))->default(date('Y-m-d H:i:s'));
             $form->number('sort', __('panel.sort'))->default(10);
+            $form->url('video', __('panel.video'));
         })->tab('Изображения', function (Form $form) {
             $form->image('imageVertical.url', __('panel.image_vertical'))
                 ->name(function ($file) {

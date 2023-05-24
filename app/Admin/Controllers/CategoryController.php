@@ -110,6 +110,7 @@ class CategoryController extends BaseController
             $form->select('promotion_id', __('panel.promotion'))->options($promotionService->listForSelect());
             $form->switch('is_tag', __('panel.is_tag'));
             $form->switch('is_active', __('panel.is_active'))->default(true);
+            $form->url('video', __('panel.video'));
         })->tab('Изображение', function (Form $form) {
             $form->image('image.url', __('panel.image'))
                 ->name(function ($file) {

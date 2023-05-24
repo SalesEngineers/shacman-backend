@@ -63,7 +63,8 @@ class CategoryResource extends JsonResource
             'image'     => $this->when($this->image && $this->image->url, new ImageResource($this->image), null),
             'filters'   => FilterResource::collection($this->filters),
             'product_main_characteristic_ids' => $this->mainCharacteristicIds->pluck('id'),
-            'seo'       => new SeoResource($this->seo)
+            'seo'       => new SeoResource($this->seo),
+            'video'     => $this->video
         ];
     }
 }
