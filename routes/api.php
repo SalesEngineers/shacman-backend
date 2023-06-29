@@ -30,6 +30,7 @@ Route::get('characteristics', \App\Http\Controllers\Api\CharacteristicController
 Route::get('settings', \App\Http\Controllers\Api\SettingsController::class)->name('settings');
 // Контакты
 Route::get('contacts', [\App\Http\Controllers\Api\ContactController::class, 'index'])->name('contacts');
+Route::get('contacts/{contact}', [\App\Http\Controllers\Api\ContactController::class, 'show'])->name('contact');
 Route::get('contacts/dynamic', [\App\Http\Controllers\Api\ContactController::class, 'dynamic'])->name('contacts-dynamic');
 Route::get('contacts/location', [\App\Http\Controllers\Api\ContactController::class, 'location'])->name('contacts-location');
 // Статьи

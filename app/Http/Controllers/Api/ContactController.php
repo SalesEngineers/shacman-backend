@@ -62,4 +62,14 @@ class ContactController extends Controller
 
         return view('location', ['location' => $location]);
     }
+
+    public function show($contact)
+    {
+        $contact = Contact::query()
+                          ->where(['id' => $contact])
+                          ->orWhere('url', $contact)
+                          ->firstOrFail();
+        
+        return new ContactResource($contact);
+    }
 }
