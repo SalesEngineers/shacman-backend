@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Casts\JsonCast;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\SlugTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Contact extends Model
 {
-    use HasFactory;
+    use HasFactory, SlugTrait;
 
     public $timestamps = false;
 
@@ -27,5 +28,47 @@ class Contact extends Model
         } else {
             $this->attributes['operating_mode'] = null;
         }
+    }
+
+    /**
+     * Сео
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable')->withDefault();
+    }
+
+    /**
+     * Список изображений
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable')->orderBy('sort', 'asc');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            self::setSlug($model);
+        });
+
+        static::updating(function ($model) {
+            self::setSlug($model);
+        });
+
+        static::deleting(function (Contact $contact) {
+            // Удаляем изображения товара
+            $contact->images()->get()->each(function (Image $image) { $image->delete(); });
+            // Удаляем SEO
+            if ($contact->seo) {
+                $contact->seo->delete();
+            }
+        });
     }
 }
