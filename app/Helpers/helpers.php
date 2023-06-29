@@ -132,3 +132,27 @@ if (!function_exists('prepareOrderFormFields')) {
         }, array_values($fields), array_keys($fields));
     }
 }
+
+if (!function_exists('getImageNameWithoutExt')) {
+    function getImageNameWithoutExt(string $name) {
+        $blocks = explode('.', $name);
+        array_pop($blocks);
+        return implode('', $blocks);
+    }
+}
+
+if (!function_exists('generateImageName')) {
+    function generateImageName(\Illuminate\Http\UploadedFile $file) {
+        $index     = 1;
+        $extension = $file->getClientOriginalExtension();
+        $original  = \Illuminate\Support\Str::slug(getImageNameWithoutExt($file->getClientOriginalName()));
+        $new       = sprintf('%s_%s.%s', $original, $index, $extension);
+
+        while (\Illuminate\Support\Facades\Storage::exists("images/$new")) {
+            $index++;
+            $new = sprintf('%s_%s.%s', $original, $index, $extension);
+        }
+
+        return $new;
+    }
+}
