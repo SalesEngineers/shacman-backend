@@ -38,6 +38,10 @@ class ContactResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->url,
+            'title' => $this->title,
+            'content' => $this->content,
+            'seo' => new SeoResource($this->seo),
+            'images' => ImageResource::collection($this->images),
             'phone' => $this->when(
                 $this->phone,
                 new PhoneResource(
