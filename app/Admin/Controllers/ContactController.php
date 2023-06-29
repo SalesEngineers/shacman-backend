@@ -3,7 +3,6 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Contact;
-use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Form\NestedForm;
 use Encore\Admin\Grid;
@@ -72,29 +71,52 @@ class ContactController extends BaseController
         $ip = request()->ip();
         $location = \App\SypexGeo\SypexGeoFacade::get($ip);
         $region = 'Ваш регион: ' . (isset($location['region']['name_ru']) ? $location['region']['name_ru'] : 'не определен');
-        
+
+
+
         $form = new Form(new Contact());
 
-        $form->text('name', __('panel.name'))->required();
-        $form->text('region', __('panel.region'))->help($region);
-        $form->text('url', __('slug'));
-        $form->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99'])->required();
-        $form->email('email', __('panel.email'));
-        $form->textarea('address', __('panel.address'));
-        $form->table('operating_mode', __('panel.operating_mode'), function (NestedForm $form) {
-            $form->text('name', __('panel.day'))->required();
-            $form->text('value', __('panel.time'))->required();
-            $form->number('sort', __('panel.sort'))->min(0)->default(0)->width('40px');
+        $form->tab('Основное', function (Form $form) use ($region) {
+            $form->text('name', __('panel.name'))->required();
+            $form->text('region', __('panel.region'))->help($region);
+            $form->text('url', __('slug'));
+            $form->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99'])->required();
+            $form->email('email', __('panel.email'));
+            $form->textarea('address', __('panel.address'));
+            $form->table('operating_mode', __('panel.operating_mode'), function (NestedForm $form) {
+                $form->text('name', __('panel.day'))->required();
+                $form->text('value', __('panel.time'))->required();
+                $form->number('sort', __('panel.sort'))->min(0)->default(0)->width('40px');
+            });
+            $form->switch('is_active', __('panel.is_active'))->default(true);
+            $form->number('sort', __('panel.sort'))->default(10);
+            $form->hidden('coords')->customFormat(function ($e) {
+                return is_array($e) ? json_encode($e) : $e;
+            })->default(json_encode([56.010021957014416, 92.85234643087742]));
+            $form->hidden('zoom')->default(16);
+            $form->html(function () {
+                return '<div id="map" style="height: 450px"></div>';
+            }, __('panel.map'));
+        })->tab('Контент', function (Form $form) {
+            $form->text('title', 'Заголовок H1');
+            $form->summernote('content', __('panel.content'));
+        })->tab('Изображения', function (Form $form) {
+            $form->morphMany('images', '', function (Form\NestedForm $form) {
+                $form->imageService('url', __('panel.image'))
+                    ->sequenceName()
+                    ->rules(['mimes:jpeg,jpg,png,webp']);
+                $form->text('alt', __('panel.image_alt'));
+                $form->text('title', __('panel.image_title'));
+                $form->number('sort', __('panel.sort'))->default(10);
+                $form->switch('is_active', __('panel.is_active'))->default(true);
+            });
+        })->tab('SEO', function (Form $form) {
+            $form->text('seo.title', __('panel.title'));
+            $form->text('seo.keywords', __('panel.keywords'));
+            $form->textarea('seo.description', __('panel.description'))->rules('max:255');
         });
-        $form->switch('is_active', __('panel.is_active'))->default(true);
-        $form->number('sort', __('panel.sort'))->default(10);
-        $form->hidden('coords')->customFormat(function ($e) {
-            return is_array($e) ? json_encode($e) : $e;
-        })->default(json_encode([56.010021957014416,92.85234643087742]));
-        $form->hidden('zoom')->default(16);
-        $form->html(function () {
-            return '<div id="map" style="height: 450px"></div>';
-        }, __('panel.map'));
+
+
 
         return $form;
     }
