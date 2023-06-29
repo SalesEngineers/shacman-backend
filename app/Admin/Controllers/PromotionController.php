@@ -71,7 +71,10 @@ class PromotionController extends BaseController
             $form->text('name', __('panel.name'))->rules(['required','max:50']);
             $form->summernote('content', __('panel.content'));
         })->tab('Изображение', function (Form $form) {
-            $form->image('image.url', __('panel.image'))->removable();
+            $form->imageService('image.url', __('panel.image'))
+                ->sequenceName()
+                ->removable()
+                ->rules(['mimes:jpeg,jpg,png,webp']);
             $form->text('image.alt', __('panel.image_alt'));
             $form->text('image.title', __('panel.image_title'));
         });

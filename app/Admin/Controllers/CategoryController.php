@@ -112,12 +112,10 @@ class CategoryController extends BaseController
             $form->switch('is_active', __('panel.is_active'))->default(true);
             $form->url('video', __('panel.video'));
         })->tab('Изображение', function (Form $form) {
-            $form->image('image.url', __('panel.image'))
-                ->name(function ($file) {
-                    return \Illuminate\Support\Str::slug($file->getClientOriginalName()) . '.' . $file->guessExtension();
-                })
-                 ->rules(['mimes:jpeg,jpg,png,webp'])
-                 ->removable();
+            $form->imageService('image.url', __('panel.image'))
+                ->sequenceName()
+                ->removable()
+                ->rules(['mimes:jpeg,jpg,png,webp']);
             $form->text('image.alt', __('panel.image_alt'));
             $form->text('image.title', __('panel.image_title'));
         })->tab('Фильтр товаров', function (Form $form) use ($characteristicService) {
