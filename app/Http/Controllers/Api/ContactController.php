@@ -60,7 +60,7 @@ class ContactController extends Controller
             }
         }
 
-        return view('location', ['location' => $location]);
+        return view('location', ['location' => $location, 'ip' => $ip]);
     }
 
     public function show($contact)
