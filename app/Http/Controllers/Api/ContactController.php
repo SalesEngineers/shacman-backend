@@ -29,7 +29,7 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
-        return ContactResource::collection(Contact::orderBy('sort', 'asc')->get());
+        return ContactResource::collection(Contact::where('is_active', true)->orderBy('sort', 'asc')->get());
     }
 
     public function dynamic(ContactService $service)
@@ -66,8 +66,11 @@ class ContactController extends Controller
     public function show($contact)
     {
         $contact = Contact::query()
-                          ->where(['id' => $contact])
-                          ->orWhere('url', $contact)
+                          ->where(function ($builder) use ($contact) {
+                            $builder->where('id', $contact)
+                                    ->orWhere('url', $contact);
+                          })
+                          ->where('is_active', true)
                           ->firstOrFail();
         
         return new ContactResource($contact);
