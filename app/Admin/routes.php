@@ -34,4 +34,6 @@ Route::group([
     $router->resource('articles', ArticleController::class);
     // Заявки
     $router->resource('form-orders', FormOrderController::class);
+    // Галерея
+    $router->resource('galleries', GalleryController::class);
 });
