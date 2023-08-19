@@ -113,6 +113,11 @@ class Category extends Model
         return $this->characteristics()->select('id');
     }
 
+    public function gallery()
+    {
+        return $this->belongsToMany(Gallery::class, 'gallery_categories');
+    }
+
     protected static function boot()
     {
         parent::boot();

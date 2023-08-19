@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Rules\UniqueSlugAdminForm;
 use App\Services\CategoryService;
 use App\Services\CharacteristicService;
+use App\Services\GalleryService;
 use App\Services\PromotionService;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -97,6 +98,7 @@ class CategoryController extends BaseController
         $categoryService = new CategoryService();
         $promotionService = new PromotionService();
         $characteristicService = new CharacteristicService();
+        $galleryService = new GalleryService;
 
         $form->tab('Основное', function (Form $form) use ($categoryService, $promotionService, $id) {
             $form->text('name', __('panel.name'))->rules(['required','max:50']);
@@ -128,6 +130,9 @@ class CategoryController extends BaseController
             $form->text('seo.title', __('panel.title'));
             $form->text('seo.keywords', __('panel.keywords'));
             $form->textarea('seo.description', __('panel.description'));
+        })->tab('Галерея', function (Form $form) use ($galleryService) {
+            $form->text('gallery_name', __('panel.name'))->rules(['max:50']);
+            $form->multipleSelect('gallery', __('panel.gallery'))->options($galleryService->listForSelect());
         });
 
         return $form;
