@@ -139,6 +139,12 @@ class CategoryController extends BaseController
             $form->multipleSelect('gallery', __('panel.gallery'))->options($galleryService->listForSelect());
         });
 
+        $form->saving(function (Form $form) {
+            if (is_null($form->videos)) {
+                $form->videos = [];
+            }
+        });
+
         return $form;
     }
 }
