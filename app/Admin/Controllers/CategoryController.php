@@ -113,6 +113,10 @@ class CategoryController extends BaseController
             $form->switch('is_tag', __('panel.is_tag'));
             $form->switch('is_active', __('panel.is_active'))->default(true);
             $form->url('video', __('panel.video'));
+
+            $form->table('videos', __('panel.video'), function ($table) {
+                $table->url('video', 'Ссылки (YouTube)');
+            });
         })->tab('Изображение', function (Form $form) {
             $form->imageService('image.url', __('panel.image'))
                 ->sequenceName()

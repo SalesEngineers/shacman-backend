@@ -68,7 +68,16 @@ class CategoryResource extends JsonResource
             'gallery'   => $this->when(count($this->gallery), [
                 'name'   => $this->gallery_name,
                 'tabs' => GalleryResourceCollection::collection($this->gallery)
-            ], null)
+            ], null),
+            'videos' => $this->when($this->videos, function () {
+                return array_reduce( $this->videos, function ($acc, $video) {
+                    if (isset($video['video']) && empty($video['video']) === false) {
+                        $acc[] = $video['video'];
+                    }
+                    
+                    return $acc;
+                }, []);
+            }, [])
         ];
     }
 }

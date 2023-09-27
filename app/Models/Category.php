@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\JsonCast;
 use App\Traits\SlugTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,11 +12,12 @@ class Category extends Model
 {
     use HasFactory, SlugTrait;
 
-    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort'];
+    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort', 'video', 'videos'];
 
     protected $casts = [
         'is_tag' => 'boolean',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'videos' => JsonCast::class,
     ];
 
     public function scopeOnlyParents(Builder $builder)
