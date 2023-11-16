@@ -39,6 +39,7 @@ class ProductShortResource extends JsonResource
             'images' => ImageResource::collection($this->images),
             'characteristics' => CharacteristicProductResource::collection($this->characteristics),
             'labels' => LabelResource::collection($this->labels),
+            'is_out_of_production' => $this->is_out_of_production
         ];
     }
 }

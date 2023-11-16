@@ -57,6 +57,9 @@ class ProductController extends BaseController
         $grid->column('name', __('panel.name'));
         $grid->column('categories', __('panel.categories'))->view('categories-as-tags');
         $grid->column('labels', __('panel.labels'))->view('labels-as-tags')->default('&minus;');
+        $grid->column('is_out_of_production', 'Снят с произв')
+            ->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '')
+            ->sortable();
         $grid->column('sort', __('panel.sort'));
         $grid->column('created_at', __('panel.created_at'))->display(function ($time) {
             return date('d.m.Y H:i:s', strtotime($time));
@@ -116,6 +119,7 @@ class ProductController extends BaseController
             $form->multipleSelect('categories', __('panel.categories'))->options($categoryService->listForSelect())->rules(['required']);
             $form->multipleSelect('labels', __('panel.labels'))->options($labelService->listForSelect());
             $form->number('sort', __('panel.sort'))->help('Чем больше число сортировки, тем выше показывается товар')->default(10);
+            $form->switch('is_out_of_production', 'Снят с производства')->default(false);
         })->tab('Габариты', function (Form $form) use ($characteristicService) {
             $form->text('dimension.width', __('panel.width'));
             $form->text('dimension.height', __('panel.height'));
