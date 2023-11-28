@@ -27,7 +27,10 @@ class CharacteristicProductResource extends JsonResource
         return [
             'id'              => $this->characteristic->id,
             'name'            => $this->characteristic->name,
-            'value'           => $this->value
+            'value'           => $this->value,
+            'groups'          => $this->when($this->characteristic->groups, function () {
+                return new GroupResourceCollection($this->characteristic->groups);
+            }, [])
         ];
     }
 }

@@ -36,4 +36,6 @@ Route::group([
     $router->resource('form-orders', FormOrderController::class);
     // Галерея
     $router->resource('galleries', GalleryController::class);
+    // Группы характеристик
+    $router->resource('groups', GroupController::class);
 });

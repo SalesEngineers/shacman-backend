@@ -25,4 +25,9 @@ class Characteristic extends Model
             ->leftJoin("product_categories", "product_categories.product_id", "=", "characteristic_products.product_id")
             ->where("product_categories.category_id", $this->pivot->category_id);
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_characteristic');
+    }
 }
