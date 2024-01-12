@@ -116,6 +116,9 @@ class ProductController extends BaseController
             $form->summernote('content', __('panel.content'));
             $form->textarea('script', 'Script')->help('Вставлять код без тега &lt;script&gt;&lt;/script&gt;');
             $form->url('video', __('panel.video'));
+            $form->table('videos', __('panel.video'), function ($table) {
+                $table->url('video', 'Ссылки (YouTube)');
+            });
             $form->multipleSelect('categories', __('panel.categories'))->options($categoryService->listForSelect())->rules(['required']);
             $form->multipleSelect('labels', __('panel.labels'))->options($labelService->listForSelect());
             $form->number('sort', __('panel.sort'))->help('Чем больше число сортировки, тем выше показывается товар')->default(10);

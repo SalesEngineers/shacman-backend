@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\JsonCast;
 use App\Traits\ModelScopeFilterTrait;
 use App\Traits\SlugTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,7 +21,11 @@ class Product extends Model
      */
     const TYPE_ATTACHED_EQUIPMENT = 1;
 
-    protected $fillable = ['name', 'url', 'type', 'content', 'video'];
+    protected $fillable = ['name', 'url', 'type', 'content', 'video', 'videos'];
+
+    protected $casts = [
+        'videos' => JsonCast::class,
+    ];
 
     /**
      * Получить товар для категории
