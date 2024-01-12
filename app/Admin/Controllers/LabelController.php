@@ -28,6 +28,9 @@ class LabelController extends BaseController
         $grid->column('id', __('panel.id'));
         $grid->column('name', __('panel.name'));
         $grid->column('color', __('panel.color'))->view('label-color');
+        $grid->column('noindex', 'Запретить индексирование')
+            ->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '')
+            ->sortable();
 
         $grid->filter(function (Grid\Filter $filter) {
             $filter->column(7, function (Grid\Filter $filter) {
@@ -66,6 +69,7 @@ class LabelController extends BaseController
 
         $form->text('name', __('panel.name'));
         $form->color('color', __('panel.color'));
+        $form->switch('noindex', 'Запретить индексирование')->default(false);
 
         return $form;
     }
