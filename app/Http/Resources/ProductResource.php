@@ -69,7 +69,16 @@ class ProductResource extends JsonResource
             'advantages' => AdvantageResource::collection($this->advantages),
             'labels' => LabelResource::collection($this->labels),
             'attachments' => AttachmentResource::collection($this->attachments),
-            'is_out_of_production' => $this->is_out_of_production
+            'is_out_of_production' => $this->is_out_of_production,
+            'videos' => $this->when($this->videos, function () {
+                return array_reduce( $this->videos, function ($acc, $video) {
+                    if (isset($video['video']) && empty($video['video']) === false) {
+                        $acc[] = $video['video'];
+                    }
+                    
+                    return $acc;
+                }, []);
+            }, [])
         ];
     }
 }
