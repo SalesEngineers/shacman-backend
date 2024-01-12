@@ -171,6 +171,12 @@ class ProductController extends BaseController
             $form->textarea('seo.description', __('panel.description'));
         });
 
+        $form->saving(function (Form $form) {
+            if (is_null($form->videos)) {
+                $form->videos = [];
+            }
+        });
+
         return $form;
     }
 }
