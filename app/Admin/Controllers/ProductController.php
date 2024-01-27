@@ -132,7 +132,7 @@ class ProductController extends BaseController
         })->tab('Характеристики', function (Form $form) use ($characteristicService) {
             $form->hasMany('characteristics', '', function (Form\NestedForm  $form) use ($characteristicService) {
                 $form->select('characteristic_id', __('panel.characteristic'))
-                     ->options($characteristicService->listForSelect())
+                     ->options($characteristicService->listForSelectWithGroup())
                      ->rules('required');
                 $form->text('value', __('panel.value'))->rules(['required']);
             });
