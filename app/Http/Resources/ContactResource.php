@@ -64,6 +64,15 @@ class ContactResource extends JsonResource
                 null
             ),
             'address' => $this->address,
+            'addresses' => $this->when($this->addresses, function () {
+                return array_reduce( $this->addresses, function ($acc, $address) {
+                    if (isset($address['address']) && empty($address['address']) === false) {
+                        $acc[] = $address['address'];
+                    }
+                    
+                    return $acc;
+                }, []);
+            }, []),
             'operating_mode' => OperatingModeModelResource::collection(
                 (new OperatingModeContainer($this->operating_mode))->list
             ),

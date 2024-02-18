@@ -13,12 +13,13 @@ class Contact extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name', 'slug', 'phone', 'email', 'address', 'operating_mode', 'is_active', 'sort', 'coords', 'zoom'];
+    protected $fillable = ['name', 'slug', 'phone', 'email', 'address', 'addresses', 'operating_mode', 'is_active', 'sort', 'coords', 'zoom'];
 
     protected $casts = [
         'is_active' => 'boolean',
         'operating_mode' => JsonCast::class,
         'coords' => JsonCast::class,
+        'addresses' => JsonCast::class,
     ];
 
     public function setOperatingModeAttribute($values)

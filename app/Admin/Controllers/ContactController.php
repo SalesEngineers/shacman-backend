@@ -82,7 +82,10 @@ class ContactController extends BaseController
             $form->text('url', __('slug'));
             $form->text('phone', __('panel.phone'))->inputmask(['mask' => '7|8 999 999-99-99'])->required();
             $form->email('email', __('panel.email'));
-            $form->textarea('address', __('panel.address'));
+            $form->textarea('address', 'Основной адрес');
+            $form->table('addresses', 'Другие адреса', function ($table) {
+                $table->textarea('address', 'Адрес');
+            });
             $form->table('operating_mode', __('panel.operating_mode'), function (NestedForm $form) {
                 $form->text('name', __('panel.day'))->required();
                 $form->text('value', __('panel.time'))->required();
@@ -116,7 +119,11 @@ class ContactController extends BaseController
             $form->textarea('seo.description', __('panel.description'))->rules('max:255');
         });
 
-
+        $form->saving(function (Form $form) {
+            if (is_null($form->addresses)) {
+                $form->addresses = [];
+            }
+        });
 
         return $form;
     }
