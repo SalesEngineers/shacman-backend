@@ -108,6 +108,7 @@ class CategoryController extends BaseController
                      new UniqueSlugAdminForm(Category::class, $form)
                  ]);
             $form->summernote('content', __('panel.content'));
+            $form->textarea('script', 'Script')->help('Вставлять код без тега &lt;script&gt;&lt;/script&gt;');
             $form->select('pid', __('panel.pid'))->options($categoryService->listForSelect($id));
             $form->select('promotion_id', __('panel.promotion'))->options($promotionService->listForSelect());
             $form->switch('is_tag', __('panel.is_tag'));

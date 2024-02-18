@@ -12,7 +12,7 @@ class Category extends Model
 {
     use HasFactory, SlugTrait;
 
-    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort', 'video', 'videos'];
+    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort', 'video', 'videos', 'script'];
 
     protected $casts = [
         'is_tag' => 'boolean',

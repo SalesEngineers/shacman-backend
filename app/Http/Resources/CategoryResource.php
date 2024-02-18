@@ -77,7 +77,8 @@ class CategoryResource extends JsonResource
                     
                     return $acc;
                 }, []);
-            }, [])
+            }, []),
+            'script' => $this->script,
         ];
     }
 }
