@@ -34,8 +34,14 @@ class ContactController extends BaseController
         $grid->column('email', __('panel.email'))->default('&minus;');
         $grid->column('address', __('panel.address'))->default('&minus;');
         $grid->column('operating_mode', __('panel.operating_mode'))->view('operating-mode')->default('&minus;');
-        $grid->column('is_active', __('panel.is_active'))->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '')->sortable();
-        $grid->column('sort', __('panel.sort'))->sortable();
+        $grid->column('is_active', __('panel.is_active'))
+            //->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '')
+            ->switch([
+                'on' => ['text' => 'Вкл.', 'value' => 1],
+                'off' => ['text' => 'Выкл.', 'value' => 0],
+            ])
+            ->sortable();
+        $grid->column('sort', __('panel.sort'))->sortable()->editable();
 
         $grid->filter(function (Filter $filter) {
             $filter->column(7, function (Filter $filter) {
