@@ -102,6 +102,7 @@ class ContactController extends BaseController
             $form->hidden('coords')->customFormat(function ($e) {
                 return is_array($e) ? json_encode($e) : $e;
             })->default(json_encode([56.010021957014416, 92.85234643087742]));
+            $form->hidden('center');
             $form->hidden('zoom')->default(16);
             $form->html(function () {
                 return '<div id="map" style="height: 450px"></div>';

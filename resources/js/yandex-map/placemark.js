@@ -1,38 +1,28 @@
 /*global ymaps*/
 const Placemark = (function () {
-    var _instance,
-        _placemark;
 
     function Placemark(coords, properties, options) {
         coords = coords || [0, 0];
         properties = properties || {};
         options = options || {};
-
-        if (_instance) {
-            this.setCoordinates(coords);
-            return _instance;
-        }
-
-        _instance = this;
-
         this.address = '';
-        _placemark = new ymaps.Placemark(coords, properties, options);
+        this.placemark = new ymaps.Placemark(coords, properties, options);
     }
 
     Placemark.prototype = {
         getPlacemark: function () {
-            return _placemark;
+            return this.placemark;
         },
         setCoordinates: function (coords) {
-            _placemark.geometry.setCoordinates(coords);
+            this.placemark.geometry.setCoordinates(coords);
         },
         getCoordinates: function () {
-            return _placemark.geometry.getCoordinates();
+            return this.placemark.geometry.getCoordinates();
         },
         setAddress: function (coords) {
             ymaps.geocode(coords).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
-                _placemark.properties
+                this.placemark.properties
                     .set({
                         // Формируем строку с данными об объекте.
                         iconCaption: [

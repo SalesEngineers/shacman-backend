@@ -79,7 +79,8 @@ class ContactResource extends JsonResource
             'is_active' => $this->is_active,
             'map' => [
                 'coords' => $this->coords,
-                'zoom' => $this->zoom
+                'zoom' => $this->zoom,
+                'center' => $this->center
             ]
         ];
     }
