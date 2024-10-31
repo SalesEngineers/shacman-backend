@@ -81,6 +81,7 @@ const init = () => {
             });
             selectedPlacemark = null;  // Сбрасываем выделение
             updateMapBounds();
+            updateCoords();
         } else {
             alert('Выберите метку для удаления.');
         }
