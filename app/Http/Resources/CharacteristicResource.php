@@ -29,7 +29,8 @@ class CharacteristicResource extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name,
             'sort'      => $this->sort,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
+            'is_main' => $this->is_main
         ];
     }
 }
