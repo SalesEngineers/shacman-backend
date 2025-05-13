@@ -29,6 +29,7 @@ class CharacteristicController extends BaseController
         $grid->column('id', __('panel.id'))->sortable();
         $grid->column('name', __('panel.name'))->sortable();
         $grid->column('is_active', __('panel.is_active'))->icon([0 => 'toggle-off', 1 => 'toggle-on'], $default = '');
+        $grid->column('is_main', 'Основной на карт. товара')->icon([0 => 'toggle-off', 1 => 'toggle-on']);
 
         $grid->filter(function (Filter $filter) {
             $filter->column(7, function (Filter $filter) {
@@ -63,6 +64,7 @@ class CharacteristicController extends BaseController
 
         $form->text('name', __('panel.name'));
         $form->switch('is_active', __('panel.is_active'))->default(true);
+        $form->switch('is_main', 'Основной на карточке товара')->default(false);
         $form->number('sort', __('panel.sort'))->default(10);
 
         return $form;

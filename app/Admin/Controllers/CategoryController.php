@@ -138,6 +138,9 @@ class CategoryController extends BaseController
         })->tab('Галерея', function (Form $form) use ($galleryService) {
             $form->text('gallery_name', __('panel.name'))->rules(['max:50']);
             $form->multipleSelect('gallery', __('panel.gallery'))->options($galleryService->listForSelect());
+        })->tab('Перенаправить', function (Form $form) use ($categoryService, $id) {
+            $form->select('cid', 'Перенаправить на категорию')->options($categoryService->listForSelect($id))
+                ->help('Выберите категорию, на которую будет перенаправлен пользователь при клике на категорию');
         });
 
         $form->saving(function (Form $form) {

@@ -32,7 +32,7 @@ class CategoryController extends ApiController
     {
         $categories = Category::onlyParents()->with(['children' => function ($query) {
             $query->orderBy('sort', 'asc');
-        }])->orderBy('sort', 'asc')->get();
+        }, 'childrenUrl', 'promotion', 'image', 'filters', 'mainCharacteristicIds', 'seo'])->orderBy('sort', 'asc')->get();
 
         return CategoryResource::collection($categories);
     }

@@ -58,6 +58,7 @@ class CategoryResource extends JsonResource
             'content'   => $this->content,
             'is_tag'    => $this->is_tag,
             'is_active' => $this->is_active,
+            'redirect'   => $this->when($this->cid, $this->childrenUrl),
             'promotion' => new PromotionResource($this->promotion),
             'children'  => CategoryResource::collection($this->children),
             'image'     => $this->when($this->image && $this->image->url, new ImageResource($this->image), null),

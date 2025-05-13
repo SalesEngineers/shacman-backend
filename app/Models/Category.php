@@ -12,7 +12,7 @@ class Category extends Model
 {
     use HasFactory, SlugTrait;
 
-    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort', 'video', 'videos', 'script'];
+    protected $fillable = ['name', 'url', 'content', 'is_tag', 'is_active', 'sort', 'video', 'videos', 'script', 'cid'];
 
     protected $casts = [
         'is_tag' => 'boolean',
@@ -38,6 +38,11 @@ class Category extends Model
     public function children()
     {
         return $this->hasMany(Category::class, 'pid')->orderBy('sort', 'asc');
+    }
+
+    public function childrenUrl()
+    {
+        return $this->belongsTo(Category::class, 'cid')->select('url');
     }
 
     /**
